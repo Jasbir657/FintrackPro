@@ -468,3 +468,24 @@ nav {
     align-items: center;
     justify-content: center;
 }
+
+.transaction-row{
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 10px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.transaction-row button{
+
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background: red;
+    color: white;
+    cursor: pointer;
+}

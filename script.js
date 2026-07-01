@@ -1,5 +1,4 @@
-
-
+// main conatainer
 const login = document.getElementById("login")
 const register = document.getElementById("register")
 const formCont = document.getElementById("formContainer")
@@ -9,255 +8,353 @@ const nav = document.querySelector("nav")
 const aside = document.querySelector("aside")
 const chekin = document.getElementById("chekin")
 const Username = document.getElementById("Username-h1")
-
+// buttons
 const logBtn = document.getElementById("logBtn")
 const regBtn = document.getElementById("regBtn")
 const create = document.getElementById("create")
-const Dashboard = document.getElementById("Dashboard")
-
-const DashBtn = document.getElementById("Dash-btn")
-const SettBtn = document.getElementById("Setting-btn")
-const trans = document.getElementById("transaction-btn")
-const darkbtn = document.getElementById("dark-btn")
-const Reset = document.getElementById("Reset")
-const checkOut = document.getElementById("check-out")
-const formClose = document.getElementById("form-close")
-
+const Dashboard = document.getElementById("Dashboard") // login ka btn
+const DashBtn = document.getElementById("Dash-btn")  // Dashboard ka ander ka btn 
+const SettBtn = document.getElementById("Setting-btn") // Dashboard
+const trans = document.getElementById("transaction-btn") // Dashboard
+const darkbtn = document.getElementById("dark-btn") // Darkmode btn
+const ctx = document.getElementById("incomeExpenseChart") // Graph
+const Reset = document.getElementById("Reset") //Reset btn 
+const checkOut = document.getElementById("check-out") // Checkout btn 
+const formClose = document.getElementById("form-close") // form ka closing btn
 const ProfileDetail = document.getElementById("Profile-Detail")
 const mainContent = document.getElementById("main-content")
 const profileSave = document.getElementById("profile-save")
-
+//
+// input
 const profileInp = document.getElementById("Profile-input")
-
-const loginp = document.getElementById("login-input")
-const logpass = document.getElementById("login-password")
-
-const reginp = document.getElementById("reg-input")
-const regpass = document.getElementById("reg-password")
-
-const amountInput = document.getElementById("amount")
-const typeInput = document.getElementById("type")
-const descriptionInput = document.getElementById("description")
-const categoryInput = document.getElementById("category")
-const dateInput = document.getElementById("date")
-
-const allTransactions = document.getElementById("allTransactions")
-
+const dateInput = document.getElementById("date") // date input
+//
 const balance = document.getElementById("balance")
 const income = document.getElementById("income")
 const expense = document.getElementById("expense")
 const transactionCount = document.getElementById("transactionCount")
-
-
 let transactions = JSON.parse(localStorage.getItem("transactions")) || []
+
+// inputs
+const loginp = document.getElementById("login-input")
+const reginp = document.getElementById("reg-input")
+// passwords
+const logpass = document.getElementById("login-password")
+const regpass = document.getElementById("reg-password")
+// 
+const descriptionInput = document.getElementById("description");
+const categoryInput = document.getElementById("category");
+const allTransactions = document.getElementById("allTransactions");
+
 let users = JSON.parse(localStorage.getItem("users")) || []
 
 
-regBtn.addEventListener("click", () => {
+
+// Hide login and show register when click on Register
+regBtn.addEventListener("click", ()=>{
     login.classList.add("hidden")
     register.classList.remove("hidden")
+    
 })
+// Hide register and show login when click on Login
 
-logBtn.addEventListener("click", () => {
+logBtn.addEventListener("click" , () =>{
     login.classList.remove("hidden")
     register.classList.add("hidden")
 })
 
-create.addEventListener("click", () => {
+// Register logic 
 
-    if (reginp.value === "" || regpass.value === "") {
+create.addEventListener("click" , () => {
+
+
+    if (reginp.value === "" || regpass.value === "" ) {
         alert("Enter Username and Password")
         return
-    }
+    } 
 
-    let exists = users.find(u => u.username === reginp.value)
+    let username = reginp.value
+    let userpassword = regpass.value
 
-    if (exists) {
-        alert("Username already exists")
-        return
-    }
 
-    users.push({
-        username: reginp.value,
-        password: regpass.value
-    })
+    let newUsers = {
 
-    localStorage.setItem("users", JSON.stringify(users))
+        username : reginp.value,
+        password : regpass.value
+    } 
 
-    alert("Registered Successfully")
+    let exists = users.find(user => user.username === username);
+
+if (exists) {
+    alert("Username already exists");
+    return;
+}
+    users.push(newUsers)
+
+     localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Registered Successfully");
+
 
     reginp.value = ""
     regpass.value = ""
+
 })
 
-Dashboard.addEventListener("click", () => {
+Dashboard.addEventListener("click" , ()=> {
 
-    let user = users.find(u =>
-        u.username === loginp.value &&
-        u.password === logpass.value
-    )
+    let username = loginp.value;
+    let password = logpass.value;
 
-    if (!user) {
-        alert("Invalid login")
-        return
+    if (username === "" || password === "") {
+    alert("Enter Username and Password");
+    return;
+}
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let foundUser = users.find((user) => {
+    return user.username === username && user.password === password;
+})
+
+    if (foundUser) {
+        alert("Login Successful");
+
+        login.classList.add("hidden")
+        chekin.classList.remove("hidden")
+        Username.textContent = loginp.value 
+        profileInp.value = loginp.value
+
+
+        loginp.value = ""
+        logpass.value = ""
+
+
+
+}   else {
+        alert("Invalid Username or Password");
+}
+
+})
+
+
+trans.addEventListener("click" , ()=> {
+
+    formCont.classList.replace("hidden" , "hidden3")
+    
+
+})
+
+darkbtn.addEventListener("click" , ()=> {
+
+    if(darkbtn.textContent === "Dark Mode On") {
+        darkbtn.textContent = "Dark Mode Off"
+    } else {
+        darkbtn.textContent = "Dark Mode On"
     }
-
-    login.classList.add("hidden")
-    chekin.classList.remove("hidden")
-
-    Username.textContent = user.username
-    profileInp.value = user.username
-
-    loginp.value = ""
-    logpass.value = ""
-
-    updateDashboard()
-    showTransactions()
-})
-
-
-darkbtn.addEventListener("click", () => {
     body.classList.toggle("dark")
     nav.classList.toggle("dark")
     aside.classList.toggle("dark")
+    
 })
 
-const chart = new Chart(document.getElementById("incomeExpenseChart"), {
-    type: "bar",
-    data: {
-        labels: ["Income", "Expense"],
-        datasets: [{
-            label: "Amount",
-            data: [0, 0]
+
+const amountInput = document.getElementById("amount");
+const typeInput = document.getElementById("type");
+
+let totalIncome = 0;
+let totalExpense = 0;
+
+const chart = new Chart(ctx,{
+    type:"bar",
+    data:{
+        labels:["Income","Expense"],
+        datasets:[{
+            label:"Amount",
+            data:[0,0]
         }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false
     }
-})
-
+});
 
 form.addEventListener("submit", (e) => {
-    e.preventDefault()
 
-    const transaction = {
-        type: typeInput.value,
-        description: descriptionInput.value,
-        category: categoryInput.value,
-        amount: Number(amountInput.value),
-        date: dateInput.value
+    e.preventDefault();
+
+    const amount = Number(amountInput.value);
+    const type = typeInput.value;
+
+    if (amount <= 0) {
+        alert("Enter a valid amount");
+        return;
     }
 
-    transactions.push(transaction)
+   const transaction = {
+    type: typeInput.value,
+    description: descriptionInput.value,
+    category: categoryInput.value,
+    amount: Number(amountInput.value),
+    date: dateInput.value
+};
 
-    localStorage.setItem("transactions", JSON.stringify(transactions))
+transactions.push(transaction);
 
-    form.reset()
-    formCont.classList.add("hidden")
-
-    updateDashboard()
-    showTransactions()
-})
-
+localStorage.setItem("transactions", JSON.stringify(transactions));
 
 function showTransactions() {
 
-    allTransactions.querySelectorAll(".transaction-row").forEach(e => e.remove())
+    document.querySelectorAll(".transaction-row").forEach(row => row.remove());
 
-    transactions.forEach((t, i) => {
+    transactions.forEach((transaction, index) => {
 
-        const row = document.createElement("div")
-        row.classList.add("transaction-row")
+        const row = document.createElement("div");
+        row.classList.add("transaction-row");
 
         row.innerHTML = `
-            <p>${t.date}</p>
-            <p>${t.description}</p>
-            <p>${t.category}</p>
-            <p>${t.type === "Income" ? "+" : "-"}₹${t.amount}</p>
-        `
+            <p>${transaction.date}</p>
+            <p>${transaction.description}</p>
+            <p>${transaction.category}</p>
+            <p>${transaction.type === "Income" ? "+" : "-"}₹${transaction.amount}</p>
+        `;
 
-        const btn = document.createElement("button")
-        btn.textContent = "Delete"
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
 
-        btn.addEventListener("click", () => {
-            deleteTransaction(i)
-        })
+        deleteBtn.addEventListener("click", () => {
+            deleteTransaction(index);
+        });
 
-        row.appendChild(btn)
-        allTransactions.appendChild(row)
-    })
+        row.appendChild(deleteBtn);
+
+        allTransactions.appendChild(row);
+    });
+
 }
+})
 
-// ================= DELETE =================
+transactions.push(transaction);
+
+localStorage.setItem("transactions", JSON.stringify(transactions));
+
+updateDashboard();
+showTransactions();
+
+amountInput.value = "";
+descriptionInput.value = "";
+categoryInput.value = "Food & Drinking";
+dateInput.value = "";
+
+formCont.classList.add("hidden");
+
+updateDashboard();
+showTransactions();
 
 function deleteTransaction(index) {
+    transactions.splice(index, 1);
 
-    transactions.splice(index, 1)
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
 
-    localStorage.setItem("transactions", JSON.stringify(transactions))
-
-    updateDashboard()
-    showTransactions()
+    updateDashboard();
+    showTransactions();
 }
+
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+
+    updateDashboard();
+
+    amountInput.value = "";
+    typeInput.value = "Expense";
+
+    formCont.classList.add("hidden");
+
 
 
 function updateDashboard() {
 
-    let incomeTotal = 0
-    let expenseTotal = 0
+    let totalIncome = 0;
+    let totalExpense = 0;
 
-    transactions.forEach(t => {
-        if (t.type === "Income") incomeTotal += t.amount
-        else expenseTotal += t.amount
+    transactions.forEach((transaction) => {
+
+        if (transaction.type === "Income") {
+            totalIncome += transaction.amount;
+        } else {
+            totalExpense += transaction.amount;
+        }
+
+    });
+
+    const currentBalance = totalIncome - totalExpense;
+
+    balance.textContent = `₹${currentBalance}`;
+    income.textContent = `₹${totalIncome}`;
+    expense.textContent = `₹${totalExpense}`;
+    transactionCount.textContent = transactions.length;
+
+    chart.data.datasets[0].data = [
+        totalIncome,
+        totalExpense
+    ];
+
+    Reset.addEventListener("click" , ()=> {
+      
+     amountInput.value = `${0.}`
+
     })
+    chart.update();
 
-    balance.textContent = `₹${incomeTotal - expenseTotal}`
-    income.textContent = `₹${incomeTotal}`
-    expense.textContent = `₹${expenseTotal}`
-    transactionCount.textContent = transactions.length
 
-    chart.data.datasets[0].data = [incomeTotal, expenseTotal]
-    chart.update()
+
 }
-
+updateDashboard();
 
 Reset.addEventListener("click", () => {
-    transactions = []
-    localStorage.removeItem("transactions")
 
-    updateDashboard()
-    showTransactions()
+    
+    transactions = [];
+    localStorage.removeItem("transactions");
+    updateDashboard();
+    chart.data.datasets[0].data = [0, 0];
+    chart.update();
 
-    chart.data.datasets[0].data = [0, 0]
-    chart.update()
-})
+});
 
+checkOut.addEventListener ("click" , ()=> {
 
-trans.addEventListener("click", () => {
-    formCont.classList.remove("hidden")
-})
-
-formClose.addEventListener("click", () => {
-    formCont.classList.add("hidden")
-})
-
-checkOut.addEventListener("click", () => {
     chekin.classList.add("hidden")
     login.classList.remove("hidden")
+    
+    
 })
 
-SettBtn.addEventListener("click", () => {
+formClose.addEventListener ("click" , ()=> {
+
+    formCont.classList.add("hidden")
+
+
+})
+
+SettBtn.addEventListener("click", ()=> {
+
     mainContent.classList.add("hidden")
     ProfileDetail.classList.remove("hidden")
+
 })
 
-DashBtn.addEventListener("click", () => {
+DashBtn.addEventListener("click" , ()=> {
+
     mainContent.classList.remove("hidden")
     ProfileDetail.classList.add("hidden")
 })
 
-profileSave.addEventListener("click", () => {
-    Username.textContent = profileInp.value
+profileSave.addEventListener("click" , ()=> {
+
+     Username.textContent = profileInp.value 
+
 })
-
-// ================= INIT =================
-
-updateDashboard()
-showTransactions()

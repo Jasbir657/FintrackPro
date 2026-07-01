@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+  href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+  rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <main>
+
+        <!-- login div  -->
+
+        <div class="login-container " id="login">
+            <h1>Welcome back</h1>
+            <p>Login to Fintrack Pro </p>
+            <h5>Username</h5>
+            <input type="text" id="login-input" placeholder="User Name">
+            <h5>Password</h5>
+            <input type="password" id="login-password" placeholder="password">
+            <button id="Dashboard">login</button>
+            <p>Don't have account ? <span id="regBtn">Register</span></p>
+        </div>
+
+        <!-- Register div -->
+ 
+        <div class="Register-container  hidden" id="register">
+            <h1>Create Account</h1>
+            <p>Join Fintrack Pro</p>
+            <h5>Username</h5>
+            <input type="text" id="reg-input" placeholder="User Name">
+            <h5>Password</h5>
+            <input type="password" id="reg-password" placeholder="password">
+            <button id="create">Register</button>
+            <p>Alreadt have an Account ?<span id="logBtn">Login</span></p>
+        </div>
+
+        <!-- Dashboard -->
+
+    
+ <div class="Dashboard-container hidden" id="chekin">
+        <aside>
+            <div class="logo">
+                <h1>Fintrack</h1>
+                <div class="btn">
+            <button id="Dash-btn">Dashboard</button>
+            <button id="Setting-btn">Setting</button>
+            </div>
+               </div>
+            <div class="transaction">
+                <button id="transaction-btn">+Transaction</button>
+            </div>
+        </aside>
+
+        <nav>
+            <div></div>
+            <div class="nav-h3">
+            <h3 id="Username-h1">Username</h3>
+            <button id="check-out">logout</button>
+            </div>
+        </nav>
+
+        <div class="content" id="main-content">
+            <div class="text">
+        <h2>Financial Overview</h2>
+        <p>Real time tracking application</p>
+        </div>
+        <div class="box-container">
+        <div class="box1">
+            <i class="ri-bank-fill"></i>
+             <p>Current Balance</p>
+             <h2 id="balance">₹0</h2>
+        </div>
+        <div class="box2">
+            <i class="fa-solid fa-arrow-trend-up"></i> 
+             <p>Total Income</p>
+             <h2 id="income">₹0</h2>
+        </div>
+        <div class="box3">
+            <i class="fa-solid fa-arrow-trend-down"></i>
+             <p>Total Expense</p>
+             <h2 id="expense">₹0</h2>
+
+        </div>
+        <div class="box4">
+            <i class="fa-solid fa-piggy-bank"></i>
+            <p>Total Transactions</p>
+            <h2 id="transactionCount">0</h2>
+        </div>
+        </div>
+         <div class="footer">
+       <div class="graph" id="graph">
+        <h1>Cash Flow Analysis</h1>
+    <canvas id="incomeExpenseChart"></canvas>
+       </div>
+       <div class="darkmode">
+        <h1>Preference</h1>
+        <button id="dark-btn">Dark Mode On</button>
+        <button id="Reset">Reset all data </button>
+       </div>
+       </div>
+ 
+       <div class="allTransaction" id="allTransactions">
+        <h1>All Transaction</h1>
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search-bar" placeholder="search...." onkeyup="">
+        <select id="search-opt">
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
+        </select>
+        </div>
+        <div class="detailsUser">
+        <p>Date</p>
+        <p id="">Description</p>
+        <p>Category</p>
+        <p>Amount</p>
+        <p>Action</p>
+        </div>
+       </div>
+       </div>
+<!-- setting page  -->
+        <div class="Settings hidden" id="Profile-Detail">
+
+                <h1>Settings</h1>
+                <p>Manage your account profile and app formation</p>
+
+                <div class="Profile-Detail">
+                    <h2>Profile Details</h2>
+                    <p>Full Name</p>
+                    <div class=" ">
+                    <input type="text" id="Profile-input">
+                    <p>Primry Currency</p>
+                    <Select id="Profile-select">
+                        <option value="">EUR</option>
+                        <option value="">USD</option>
+                        <option value="">INR</option>
+                        <option value="">GBP</option>
+                        <option value="">JPY</option>
+                    </Select>
+                    </div>
+                    <button id="profile-save">Save</button> 
+                </div>
+               </div>
+
+
+       <!-- form transaction -->
+        <div  class="Form  hidden" id="formContainer">
+               <form id="tran-form" >
+                <div class="form-tital">
+                <h3>Add Transaction</h3>
+                <h2 id="form-close">X</h2>
+                </div>
+                <p>Type</p>
+               <select id="type">
+                <option value="Expense">Expense</option>
+                <option value="Income">Income</option>
+               </select>
+               <p>Description</p>
+               <input type="text" id="description" placeholder="Description" >
+               <div class="date">
+                <p>Amount</p>
+               <input type="number" id="amount" placeholder="Amount" >
+               
+               <input type="date" >
+               </div>
+               <select id="category">
+                <option value="Food & Drinking">Food & Drinking</option>
+                <option value="Shopping">Shoping</option>
+                <option value="Recharge & Bill">Recharge & Bill</option>
+                <option value="Petrol & Auto">Petrol & Auto</option>
+                <option value="Utility">Utility</option>
+                <option value="Salary">Salary</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+               </select>
+               <button type="submit">Save Transaction</button>
+               </form>
+               </div>
+
+
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

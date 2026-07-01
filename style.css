@@ -138,6 +138,18 @@ aside {
     grid-area: main;
 }
 
+.logo-icon  {
+
+    display: flex;   
+}
+.logo-icon i {
+    font-size: 2rem;
+    margin-top: 11px;
+    margin-right: 5px;
+}
+
+
+
 nav {
     grid-area: nav;
     height: 50px;

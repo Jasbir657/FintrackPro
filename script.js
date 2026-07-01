@@ -27,7 +27,6 @@ const profileSave = document.getElementById("profile-save")
 //
 // input
 const profileInp = document.getElementById("Profile-input")
-const dateInput = document.getElementById("date") // date input
 //
 const balance = document.getElementById("balance")
 const income = document.getElementById("income")
@@ -192,77 +191,12 @@ form.addEventListener("submit", (e) => {
         return;
     }
 
-   const transaction = {
-    type: typeInput.value,
-    description: descriptionInput.value,
-    category: categoryInput.value,
-    amount: Number(amountInput.value),
-    date: dateInput.value
-};
+    const transaction = {
+    type: type,
+    amount: amount,
 
-transactions.push(transaction);
-
-localStorage.setItem("transactions", JSON.stringify(transactions));
-
-function showTransactions() {
-
-    document.querySelectorAll(".transaction-row").forEach(row => row.remove());
-
-    transactions.forEach((transaction, index) => {
-
-        const row = document.createElement("div");
-        row.classList.add("transaction-row");
-
-        row.innerHTML = `
-            <p>${transaction.date}</p>
-            <p>${transaction.description}</p>
-            <p>${transaction.category}</p>
-            <p>${transaction.type === "Income" ? "+" : "-"}₹${transaction.amount}</p>
-        `;
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-
-        deleteBtn.addEventListener("click", () => {
-            deleteTransaction(index);
-        });
-
-        row.appendChild(deleteBtn);
-
-        allTransactions.appendChild(row);
-    });
-
-}
-})
-
-transactions.push(transaction);
-
-localStorage.setItem("transactions", JSON.stringify(transactions));
-
-updateDashboard();
-showTransactions();
-
-amountInput.value = "";
-descriptionInput.value = "";
-categoryInput.value = "Food & Drinking";
-dateInput.value = "";
-
-formCont.classList.add("hidden");
-
-updateDashboard();
-showTransactions();
-
-function deleteTransaction(index) {
-    transactions.splice(index, 1);
-
-    localStorage.setItem(
-        "transactions",
-        JSON.stringify(transactions)
-    );
-
-    updateDashboard();
-    showTransactions();
-}
+    }
+   
 
     localStorage.setItem("transactions", JSON.stringify(transactions));
 
@@ -273,7 +207,7 @@ function deleteTransaction(index) {
 
     formCont.classList.add("hidden");
 
-
+});
 
 function updateDashboard() {
 

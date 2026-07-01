@@ -126,106 +126,111 @@ if (foundUser) {
         if(darkbtn.textContent === "Dark Mode On") 
             { darkbtn.textContent = "Dark Mode Off" }
         
-        else { darkbtn.textContent = "Dark Mode On" }
-        body.classList.toggle("dark")
-         nav.classList.toggle("dark")
-          aside.classList.toggle("dark")
+  else { darkbtn.textContent = "Dark Mode On" }
+  body.classList.toggle("dark")
+  nav.classList.toggle("dark")
+  aside.classList.toggle("dark")
          })
-
-         const amountInput = document.getElementById("amount");
-          const typeInput = document.getElementById("type"); 
-          let totalIncome = 0; 
-          let totalExpense = 0; 
-          const chart = new Chart(ctx,{
-             type:"bar",
-             data:{ 
-                labels:["Income","Expense"],
-                 datasets:[{ 
-                    label:"Amount", 
-                    data:[0,0] 
+const amountInput = document.getElementById("amount");
+         
+const typeInput = document.getElementById("type"); 
+ let totalIncome = 0; 
+         
+ let totalExpense = 0; 
+          
+ const chart = new Chart(ctx,{
+           
+   type:"bar",
+           data:{ 
+            labels:["Income","Expense"],
+           datasets:[{ 
+          label:"Amount", 
+          data:[0,0] 
                 }] 
             },
 
-            options:{ 
-                responsive:true,
-                 maintainAspectRatio:false 
-                }
-             });
+ options:{ 
+   responsive:true,
+ maintainAspectRatio:false 
+         }
+});
 
-             form.addEventListener("submit", (e) => { 
-                e.preventDefault(); 
-                const amount = Number(amountInput.value);
-                 const type = typeInput.value;
-                  if (amount <= 0) { alert("Enter a valid amount"); 
-                    return;
+form.addEventListener("submit", (e) => { 
+ e.preventDefault(); 
+ const amount = Number(amountInput.value);
+ const type = typeInput.value;
+if (amount <= 0) { alert("Enter a valid amount"); 
+  return;
                     
+    }
+                 
+    const transaction = {
+   type: type,
+    amount: amount,
+ description: descriptionInput.value,
+  category: categoryInput.value,
+  date: document.getElementById("date").value
                  }
-                 const transaction = {
-                     type: type,
-                     amount: amount,
-                     description: descriptionInput.value,
-                     category: categoryInput.value,
-                     date: document.getElementById("date").value
-                 }
-                 transactions.push(transaction);
-                 localStorage.setItem("transactions", JSON.stringify(transactions)); 
-                 updateDashboard(); 
-                 amountInput.value = ""; 
-                 descriptionInput.value = "";
-                 categoryInput.value = "Other";
-                 document.getElementById("date").value = "";
-                 typeInput.value = "Expense"; 
-                 formCont.classList.add("hidden");
+       transactions.push(transaction);
+     localStorage.setItem("transactions", JSON.stringify(transactions)); 
+    updateDashboard(); 
+ amountInput.value = ""; 
+descriptionInput.value = "";
+   categoryInput.value = "Other";
+                
+document.getElementById("date").value = "";
+typeInput.value = "Expense"; 
+ formCont.classList.add("hidden");
                  });
 
-                 function updateDashboard() { 
-                    let totalIncome = 0; 
-                    let totalExpense = 0;
-                     transactions.forEach((transaction) => { 
-                        if (transaction.type === "Income")
-                             { totalIncome += transaction.amount; 
+   function updateDashboard() { 
+      let totalIncome = 0; 
+      let totalExpense = 0;
+      transactions.forEach((transaction) => { 
+  if (transaction.type === "Income")
+    { totalIncome += transaction.amount; 
 
-                             } else { 
-                                totalExpense += transaction.amount;
-                             } 
-                            });
+     } else { 
+       totalExpense += transaction.amount;
+         } 
+      });
 
-                            const currentBalance = totalIncome - totalExpense; 
-                            balance.textContent = `₹${currentBalance}`; 
-                            income.textContent = `₹${totalIncome}`; 
-                            expense.textContent = `₹${totalExpense}`;
-                            transactionCount.textContent = transactions.length;
+  const currentBalance = totalIncome - totalExpense; 
+   balance.textContent = `₹${currentBalance}`; 
+    income.textContent = `₹${totalIncome}`; 
+ expense.textContent = `₹${totalExpense}`;
+  transactionCount.textContent = transactions.length;
 
-                            chart.data.datasets[0].data = [ totalIncome, totalExpense ];
-                                  chart.update(); 
-                                }
+     chart.data.datasets[0].data = [ totalIncome, totalExpense ];
+       chart.update(); 
+      }
 
-                                updateDashboard();
-                                 Reset.addEventListener("click", () => { 
-                                    transactions = []; 
-                                    localStorage.removeItem("transactions");
-                                     updateDashboard();
-                                      chart.data.datasets[0].data = [0, 0];
-                                       chart.update();
-                                     });
+ updateDashboard();
+           Reset.addEventListener("click", () => { 
+   transactions = []; 
+ localStorage.removeItem("transactions");
+  updateDashboard();
+ chart.data.datasets[0].data = [0, 0];
+ chart.update();
+ });
 
-                                     checkOut.addEventListener ("click" , ()=> {
-                                         chekin.classList.add("hidden")
-                                          login.classList.remove("hidden") 
-                                        })
-                                        formClose.addEventListener ("click" , ()=> {
-                                             formCont.classList.add("hidden")
-                                             })
+   checkOut.addEventListener ("click" , ()=> {
+    chekin.classList.add("hidden")
+  login.classList.remove("hidden") 
+ })
+ formClose.addEventListener ("click" , ()=> {
+  formCont.classList.add("hidden")
+   })
 
-                                             SettBtn.addEventListener("click", ()=> { 
-                                                mainContent.classList.add("hidden")
-                                                 ProfileDetail.classList.remove("hidden")
-                                                 })
-                                                 DashBtn.addEventListener("click" , ()=> {
-                                                     mainContent.classList.remove("hidden")
-                                                      ProfileDetail.classList.add("hidden")
-                                                     }) 
+   SettBtn.addEventListener("click", ()=> { 
+       mainContent.classList.add("hidden")
+       ProfileDetail.classList.remove("hidden")
+       })
+       DashBtn.addEventListener("click" , ()=> {
+      mainContent.classList.remove("hidden")
+      ProfileDetail.classList.add("hidden")
+            }) 
                                                      
-                                                     profileSave.addEventListener("click" , ()=> {
-                                                         Username.textContent = profileInp.value
-                                                         })
+          profileSave.addEventListener("click" , ()=> {
+                     Username.textContent = profileInp.value
+          })

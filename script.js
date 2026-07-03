@@ -27,7 +27,7 @@ const Reset = document.getElementById("Reset")
            //Reset btn 
 const checkOut = document.getElementById("check-out")
             // Checkout btn 
-            // const formClose = document.getElementById("form-close")
+ const formClose = document.getElementById("form-close")
  // form ka closing btn 
 const ProfileDetail = document.getElementById("Profile-Detail") 
 const mainContent = document.getElementById("main-content")

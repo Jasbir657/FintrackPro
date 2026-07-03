@@ -2,55 +2,55 @@
  const login = document.getElementById("login")
  const register = document.getElementById("register") 
  const formCont = document.getElementById("formContainer")
-  const form = document.getElementById("tran-form") 
-  const body = document.body 
-  const nav = document.querySelector("nav") 
-  const aside = document.querySelector("aside")
-   const chekin = document.getElementById("chekin")
-    const Username = document.getElementById("Username-h1")
+ const form = document.getElementById("tran-form") 
+const body = document.body 
+ const nav = document.querySelector("nav") 
+const aside = document.querySelector("aside")
+const chekin = document.getElementById("chekin")
+const Username = document.getElementById("Username-h1")
    // buttons
-     const logBtn = document.getElementById("logBtn")
-      const regBtn = document.getElementById("regBtn")
-       const create = document.getElementById("create")
-        const Dashboard = document.getElementById("Dashboard") // login ka btn
+const logBtn = document.getElementById("logBtn")
+const regBtn = document.getElementById("regBtn")
+const create = document.getElementById("create")
+const Dashboard = document.getElementById("Dashboard") // login ka btn
 
-        const DashBtn = document.getElementById("Dash-btn") 
+const DashBtn = document.getElementById("Dash-btn") 
         // Dashboard ka ander ka btn 
-        const SettBtn = document.getElementById("Setting-btn")
+const SettBtn = document.getElementById("Setting-btn")
          // Dashboard 
-         const trans = document.getElementById("transaction-btn")
+const trans = document.getElementById("transaction-btn")
           // Dashboard 
-          const darkbtn = document.getElementById("dark-btn") // Darkmode btn
-          const ctx = document.getElementById("incomeExpenseChart") 
+const darkbtn = document.getElementById("dark-btn") // Darkmode btn
+const ctx = document.getElementById("incomeExpenseChart") 
           // Graph 
-          const Reset = document.getElementById("Reset")
+const Reset = document.getElementById("Reset")
            //Reset btn 
-           const checkOut = document.getElementById("check-out")
+const checkOut = document.getElementById("check-out")
             // Checkout btn 
-const formClose = document.getElementById("form-close")
+            // const formClose = document.getElementById("form-close")
  // form ka closing btn 
- const ProfileDetail = document.getElementById("Profile-Detail") 
- const mainContent = document.getElementById("main-content")
-  const profileSave = document.getElementById("profile-save")
+const ProfileDetail = document.getElementById("Profile-Detail") 
+const mainContent = document.getElementById("main-content")
+const profileSave = document.getElementById("profile-save")
   // input
-   const profileInp = document.getElementById("Profile-input")
+const profileInp = document.getElementById("Profile-input")
 const balance = document.getElementById("balance") 
 const income = document.getElementById("income")
- const expense = document.getElementById("expense")
-  const transactionCount = document.getElementById("transactionCount") 
-  let transactions = JSON.parse(localStorage.getItem("transactions")) || []
+const expense = document.getElementById("expense")
+const transactionCount = document.getElementById("transactionCount") 
+let transactions = JSON.parse(localStorage.getItem("transactions")) || []
 
   // inputs
-   const loginp = document.getElementById("login-input")
-    const reginp = document.getElementById("reg-input") 
+const loginp = document.getElementById("login-input")
+const reginp = document.getElementById("reg-input") 
     // passwords 
 const logpass = document.getElementById("login-password") 
 const regpass = document.getElementById("reg-password") 
 const descriptionInput = document.getElementById("description");
- const categoryInput = document.getElementById("category"); 
- const allTransactions = document.getElementById("allTransactions");
+const categoryInput = document.getElementById("category"); 
+const allTransactions = document.getElementById("allTransactions");
 
- let users = JSON.parse(localStorage.getItem("users")) || []
+let users = JSON.parse(localStorage.getItem("users")) || []
 
  // Hide login and show register when click on Register 
  regBtn.addEventListener("click", ()=>{
@@ -59,48 +59,48 @@ const descriptionInput = document.getElementById("description");
      })
 
      // Hide register and show login when click on Login 
-     logBtn.addEventListener("click" , () =>{ 
-        login.classList.remove("hidden")
-         register.classList.add("hidden")
+  logBtn.addEventListener("click" , () =>{ 
+      login.classList.remove("hidden")
+      register.classList.add("hidden")
          })
 
          // Register logic 
-        create.addEventListener("click" , () => { 
-            if (reginp.value === "" || regpass.value === "" ) 
-                { alert("Enter Username and Password")
-                     return }
+  create.addEventListener("click" , () => { 
+      if (reginp.value === "" || regpass.value === "" ) 
+        { alert("Enter Username and Password")
+          return }
                      
-      let username = reginp.value 
-     let userpassword = regpass.value 
-     let newUsers = {
+    let username = reginp.value 
+    let userpassword = regpass.value 
+    let newUsers = {
         username : reginp.value,
          password : regpass.value 
                     }
 
-        let exists = users.find(user => user.username === username); 
-            if (exists) { 
-            alert("Username already exists"); 
+    let exists = users.find(user => user.username === username); 
+      if (exists) { 
+      alert("Username already exists"); 
                 return; 
                     }
 
-         users.push(newUsers) 
-         localStorage.setItem("users", JSON.stringify(users)); 
-         alert("Registered Successfully");
-          reginp.value = ""
-          regpass.value = "" 
-                        })
-        Dashboard.addEventListener("click" , ()=> {
-          let username = loginp.value; 
-          let password = logpass.value; 
-              if (username === "" || password === "")
-             { alert("Enter Username and Password"); 
-               return; 
-                  }
+    users.push(newUsers) 
+    localStorage.setItem("users", JSON.stringify(users)); 
+    alert("Registered Successfully");
+    reginp.value = ""
+    regpass.value = "" 
+                   })
+    Dashboard.addEventListener("click" , ()=> {
+    let username = loginp.value; 
+    let password = logpass.value; 
+     if (username === "" || password === "")
+      { alert("Enter Username and Password"); 
+        return; 
+           }
 
-            let users = JSON.parse(localStorage.getItem("users")) || []; 
-             let foundUser = users.find((user) => {
-            return user.username === username && user.password === password;
-               })
+    let users = JSON.parse(localStorage.getItem("users")) || []; 
+    let foundUser = users.find((user) => {
+    return user.username === username && user.password === password;
+          })
 
 
 if (foundUser) { 
@@ -151,7 +151,7 @@ const typeInput = document.getElementById("type");
 
  options:{ 
    responsive:true,
- maintainAspectRatio:false 
+   maintainAspectRatio:false 
          }
 });
 
@@ -165,22 +165,24 @@ if (amount <= 0) { alert("Enter a valid amount");
     }
                  
     const transaction = {
-   type: type,
+    type: type,
     amount: amount,
- description: descriptionInput.value,
-  category: categoryInput.value,
-  date: document.getElementById("date").value
+    description: descriptionInput.value,
+    category: categoryInput.value,
+    date: document.getElementById("date").value
                  }
-       transactions.push(transaction);
+       
+     transactions.push(transaction);
      localStorage.setItem("transactions", JSON.stringify(transactions)); 
-    updateDashboard(); 
- amountInput.value = ""; 
-descriptionInput.value = "";
+     updateDashboard(); 
+
+   amountInput.value = ""; 
+   descriptionInput.value = "";
    categoryInput.value = "Other";
                 
-document.getElementById("date").value = "";
-typeInput.value = "Expense"; 
- formCont.classList.add("hidden");
+   document.getElementById("date").value = "";
+   typeInput.value = "Expense"; 
+   formCont.classList.add("hidden");
                  });
 
    function updateDashboard() { 
@@ -223,14 +225,14 @@ typeInput.value = "Expense";
    })
 
    SettBtn.addEventListener("click", ()=> { 
-       mainContent.classList.add("hidden")
-       ProfileDetail.classList.remove("hidden")
+   mainContent.classList.add("hidden")
+  ProfileDetail.classList.remove("hidden")
        })
-       DashBtn.addEventListener("click" , ()=> {
-      mainContent.classList.remove("hidden")
-      ProfileDetail.classList.add("hidden")
-            }) 
+  DashBtn.addEventListener("click" , ()=> {
+  mainContent.classList.remove("hidden")
+  ProfileDetail.classList.add("hidden")
+        }) 
                                                      
-          profileSave.addEventListener("click" , ()=> {
-                     Username.textContent = profileInp.value
+  profileSave.addEventListener("click" , ()=> {
+  Username.textContent = profileInp.value
           })

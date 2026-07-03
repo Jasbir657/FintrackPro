@@ -1,13 +1,14 @@
+
 //main conatainer
  const login = document.getElementById("login")
  const register = document.getElementById("register") 
  const formCont = document.getElementById("formContainer")
  const form = document.getElementById("tran-form") 
-const body = document.body 
+ const body = document.body 
  const nav = document.querySelector("nav") 
-const aside = document.querySelector("aside")
-const chekin = document.getElementById("chekin")
-const Username = document.getElementById("Username-h1")
+ const aside = document.querySelector("aside")
+ const chekin = document.getElementById("chekin")
+ const Username = document.getElementById("Username-h1")
    // buttons
 const logBtn = document.getElementById("logBtn")
 const regBtn = document.getElementById("regBtn")
@@ -28,6 +29,7 @@ const Reset = document.getElementById("Reset")
 const checkOut = document.getElementById("check-out")
             // Checkout btn 
  const formClose = document.getElementById("form-close")
+ const formSubmit = document.getElementById("form-submit")
  // form ka closing btn 
 const ProfileDetail = document.getElementById("Profile-Detail") 
 const mainContent = document.getElementById("main-content")
@@ -47,6 +49,7 @@ const reginp = document.getElementById("reg-input")
 const logpass = document.getElementById("login-password") 
 const regpass = document.getElementById("reg-password") 
 const descriptionInput = document.getElementById("description");
+const date = document.getElementById("date")
 const categoryInput = document.getElementById("category"); 
 const allTransactions = document.getElementById("allTransactions");
 
@@ -236,3 +239,32 @@ if (amount <= 0) { alert("Enter a valid amount");
   profileSave.addEventListener("click" , ()=> {
   Username.textContent = profileInp.value
           })
+
+
+          formSubmit.addEventListener ("click" , ()=> {
+
+          const li = document.createElement("div")
+          const bttn = document.createElement("button")
+
+          li.classList.add("li")
+        
+
+          li.innerHTML = `
+             <span>${date.value}</span>
+        <span>${descriptionInput.value}</span>
+        <span>${categoryInput.value}</span>
+        <span>${amountInput.value}</span>
+        `
+        bttn.innerHTML = "Delete"
+        bttn.classList.add("bttn")
+        
+          
+          allTransactions.appendChild(li)
+          li.appendChild(bttn)
+
+          bttn.addEventListener("click" , () => {
+           li.remove()
+            
+          })
+
+        })
